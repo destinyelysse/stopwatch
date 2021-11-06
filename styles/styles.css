@@ -1,0 +1,25 @@
+body {
+    background-color: #242526;
+    margin: 0;
+    color: white;
+}
+
+#clock-display {
+    font-size: 36px;
+}
+
+button {
+    border-radius: 5px;
+}
+
+#start {
+    background-color: lightblue;
+}
+
+#stop {
+    background-color: #e0c1c7;
+}
+
+#reset {
+    background-color: #e0c1c7;
+}
