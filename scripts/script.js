@@ -7,6 +7,8 @@ class Clock {
         this.time = 0;
         this.timer;
         this.timerDisplay = document.getElementById("time");
+        this.log = document.getElementById('stopwatch-logs');
+        this.logs = 0;
     }
 
     displayTimer() {
@@ -31,7 +33,6 @@ class Clock {
     }
 
     resetTimer(){
-        clearInterval(this.interval)
         this.currentMilliseconds = 0;
         this.currentSeconds = 0;
         this.currentMinutes = 0;
@@ -46,24 +47,55 @@ class Clock {
     stopTimer(){
         clearInterval(this.interval);
     }
+
+    trackTime(){
+        let time = this.timerDisplay.innerHTML;
+        this.logs++;
+        let newLog = document.createElement('div');
+        newLog.className = "log";
+        let newLogLabel = document.createElement('p');
+        newLogLabel.className = "log-label";
+        newLogLabel.innerHTML = "Timestamp " + this.logs;
+        newLog.appendChild(newLogLabel);
+        let newLogTime = document.createElement("p");
+        newLogTime.className = "log-timestamp";
+        newLogTime.innerHTML = time;
+        newLog.appendChild(newLogTime);
+        this.log.appendChild(newLog);
+    }
+
+    clearLog(){
+        while (this.log.firstChild) {
+            this.log.removeChild(this.log.firstChild);
+        }
+        this.logs = 0;
+    }
 }
 
 let stopwatch = new Clock();
 
-let startBtn = document.getElementById("start");
-startBtn.addEventListener('click', () => {
-    stopwatch.startTimer();
-    startBtn.disabled = true;
-});
-
-let stopBtn = document.getElementById("stop");
-stopBtn.addEventListener('click', () => {
-    stopwatch.stopTimer();
-    startBtn.disabled = false;
+let controlBtn = document.getElementById("control");
+controlBtn.addEventListener('click', () => {
+    if (controlBtn.innerHTML === "Start"){
+        stopwatch.startTimer();
+        controlBtn.innerHTML = "Stop";
+    } else {
+        stopwatch.stopTimer();
+        controlBtn.innerHTML = "Start";
+    }
 });
 
 let resetBtn = document.getElementById("reset");
 resetBtn.addEventListener('click', () => {
     stopwatch.resetTimer();
-    startBtn.disabled = false;
 });
+
+let trackBtn = document.getElementById("track");
+trackBtn.addEventListener('click', () => {
+    stopwatch.trackTime();
+});
+
+let clearBtn = document.getElementById("clear");
+clearBtn.addEventListener('click', () => {
+    stopwatch.clearLog();
+})
