@@ -20,15 +20,16 @@ class Clock {
 
     increaseByOneSecond(){
         this.currentSeconds++;
-        if (this.currentseconds === 60){
+        if (this.currentSeconds == 60){
             this.currentMinutes++;
-            this.currentseconds = 0;
+            this.currentSeconds = 0;
         }
 
-        if (this.currentMinutes === 60){
+        if (this.currentMinutes == 60){
             this.currentHours++;
             this.currentMinutes = 0;
         }
+
         this.displayTimer();
     }
 
@@ -55,7 +56,7 @@ class Clock {
         newLog.className = "log";
         let newLogLabel = document.createElement('p');
         newLogLabel.className = "log-label";
-        newLogLabel.innerHTML = "Timestamp " + this.logs;
+        newLogLabel.innerHTML = `Timestamp ${this.logs}`;
         newLog.appendChild(newLogLabel);
         let newLogTime = document.createElement("p");
         newLogTime.className = "log-timestamp";
